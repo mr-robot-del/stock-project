@@ -15,8 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import permissions
+from rest_framework.schemas import get_schema_view
+
+schema_view = get_schema_view(
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),  # Login/logout for browsable API
+   # path('api/docs/', schema_view, name='api-docs'),    # Optional: API schema
+    path('users/', include('users.urls')),
+   # path('stocks/', include('stocks.urls')),
+   # path('analysis/', include('analysis.urls')),
+   # path('portfolios/', include('portfolios.urls')),
 ]
