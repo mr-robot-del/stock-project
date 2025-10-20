@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 from rest_framework import permissions
 from rest_framework.schemas import get_schema_view
+
+# Temporary root view
+def home(request):
+    return HttpResponse("Welcome to Stock Project API")
+
+# Temporary favicon view
+def favicon(request):
+    return HttpResponse(status=204)
 
 schema_view = get_schema_view(
     public=True,
@@ -25,11 +34,15 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('', home, name='home'),
+    path('favicon.ico', favicon),
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),  # Login/logout for browsable API
-   # path('api/docs/', schema_view, name='api-docs'),    # Optional: API schema
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/docs/', schema_view, name='api-docs'),
     path('users/', include('users.urls')),
-   # path('stocks/', include('stocks.urls')),
-   # path('analysis/', include('analysis.urls')),
-   # path('portfolios/', include('portfolios.urls')),
+    path('stocks/', include('stocks.urls')),
+    path('alerts/', include('alerts.urls')),
+    path('analysis/', include('analysis.urls')),
+    path('portfolios/', include('portfolios.urls')),
+    
 ]
