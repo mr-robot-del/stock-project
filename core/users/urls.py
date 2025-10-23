@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.UserListView.as_view(), name='user-list'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
-    
+    path('watchlist/', views.WatchlistView.as_view(), name='watchlist'),
+    path('watchlist/<int:stock_id>/', views.WatchlistRemoveView.as_view(), name='watchlist-remove'),
 ]

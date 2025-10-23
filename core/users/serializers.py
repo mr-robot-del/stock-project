@@ -54,3 +54,5 @@ class LoginSerializer(AuthTokenSerializer):
 
         attrs['user'] = user
         return attrs
+class WatchlistAddSerializer(serializers.Serializer):
+    stock_id = serializers.IntegerField(min_value=1, help_text="ID of the stock to add from search results")
